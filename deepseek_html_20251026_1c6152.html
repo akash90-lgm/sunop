@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Blog | Quran, Hadith & Huzur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0d7e3f;
+            --secondary: #1a472a;
+            --accent: #d4af37;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --text: #333;
+            --gray: #6c757d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .arabic {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        header.scrolled {
+            padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 10% 80px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(13, 126, 63, 0.1), rgba(212, 175, 55, 0.1));
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(13, 126, 63, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            background: white;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .blog-posts {
+            display: grid;
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .blog-excerpt {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .blog-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .blog-link:hover {
+            gap: 10px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar-widget {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeInRight 0.5s ease;
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .categories-list {
+            list-style: none;
+        }
+
+        .categories-list li {
+            margin-bottom: 10px;
+        }
+
+        .categories-list a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .categories-list a:hover {
+            color: var(--primary);
+            padding-left: 10px;
+        }
+
+        .categories-list span {
+            background: var(--light);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .recent-post {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .recent-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recent-post-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .recent-post-content h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .recent-post-content span {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Quran Section */
+        .quran-section {
+            background: linear-gradient(135deg, rgba(13, 126, 63, 0.05), rgba(212, 175, 55, 0.05));
+        }
+
+        .quran-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quran-verse {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease;
+        }
+
+        .quran-verse::before {
+            content: '﷽';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            color: rgba(13, 126, 63, 0.1);
+        }
+
+        .verse-arabic {
+            font-size: 2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .verse-translation {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .verse-reference {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .quran-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Hadith Section */
+        .hadith-section {
+            background: white;
+        }
+
+        .hadith-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hadith-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hadith-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .hadith-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-style: italic;
+        }
+
+        .hadith-reference {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .hadith-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Huzur Section */
+        .huzur-section {
+            background: linear-gradient(135deg, rgba(13, 126, 63, 0.05), rgba(212, 175, 55, 0.05));
+        }
+
+        .huzur-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .huzur-image {
+            width: 40%;
+            animation: fadeInLeft 1s ease;
+        }
+
+        .huzur-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .huzur-details {
+            width: 60%;
+            animation: fadeInRight 1s ease;
+        }
+
+        .huzur-name {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .huzur-title {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .huzur-bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .huzur-quote {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--accent);
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Shopping Section */
+        .shopping-section {
+            background: white;
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .product-rating {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .wishlist {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wishlist:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 80px 10%;
+            text-align: center;
+            color: white;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 10% 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .section {
+                padding: 80px 5%;
+            }
+
+            header {
+                padding: 20px 5%;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 150px;
+            }
+
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+
+            .huzur-container {
+                flex-direction: column;
+            }
+
+            .huzur-image, .huzur-details {
+                width: 100%;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: all 0.5s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .quran-verse {
+                padding: 20px;
+            }
+
+            .verse-arabic {
+                font-size: 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .products-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .huzur-name {
+                font-size: 2rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <a href="#" class="logo">
+            <i class="fas fa-mosque"></i>
+            Islamic Blog
+        </a>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#quran">Quran</a></li>
+            <li><a href="#hadith">Hadith</a></li>
+            <li><a href="#huzur">Huzur</a></li>
+            <li><a href="#shopping">Shop</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Islamic Knowledge & Inspiration</h1>
+            <p class="hero-subtitle">Discover profound wisdom from the Quran, Hadith, and Islamic scholars</p>
+            <div class="hero-buttons">
+                <a href="#blog" class="btn btn-primary">Read Articles</a>
+                <a href="#quran" class="btn btn-secondary">Quran Verses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section blog-section" id="blog">
+        <h2 class="section-title">Latest Articles</h2>
+        <div class="blog-container">
+            <div class="blog-posts">
+                <article class="blog-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=800&q=80" alt="Islamic Learning" class="blog-img">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> May 15, 2023</span>
+                            <span><i class="far fa-folder"></i> Spirituality</span>
+                            <span><i class="far fa-comments"></i> 12 Comments</span>
+                        </div>
+                        <h3 class="blog-title">The Importance of Seeking Knowledge in Islam</h3>
+                        <p class="blog-excerpt">Discover why seeking knowledge is considered a religious duty in Islam and how it transforms both individual lives and communities.</p>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1587132137056-7cbd6c15f0f9?auto=format&fit=crop&w=800&q=80" alt="Prayer" class="blog-img">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> May 10, 2023</span>
+                            <span><i class="far fa-folder"></i> Worship</span>
+                            <span><i class="far fa-comments"></i> 8 Comments</span>
+                        </div>
+                        <h3 class="blog-title">The Spiritual Benefits of Regular Prayer</h3>
+                        <p class="blog-excerpt">Explore how the five daily prayers connect Muslims to Allah and provide spiritual nourishment throughout the day.</p>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1516557070061-9aa3d1bf2ce2?auto=format&fit=crop&w=800&q=80" alt="Charity" class="blog-img">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> May 5, 2023</span>
+                            <span><i class="far fa-folder"></i> Community</span>
+                            <span><i class="far fa-comments"></i> 15 Comments</span>
+                        </div>
+                        <h3 class="blog-title">The Power of Charity in Building Strong Communities</h3>
+                        <p class="blog-excerpt">Learn how Zakat and Sadaqah not only purify wealth but also strengthen social bonds and alleviate poverty.</p>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li><a href="#">Spirituality <span>15</span></a></li>
+                        <li><a href="#">Worship <span>22</span></a></li>
+                        <li><a href="#">Quran <span>18</span></a></li>
+                        <li><a href="#">Hadith <span>14</span></a></li>
+                        <li><a href="#">Islamic History <span>9</span></a></li>
+                        <li><a href="#">Community <span>12</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Recent Posts</h3>
+                    <div class="recent-post">
+                        <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=150&q=80" alt="Recent Post" class="recent-post-img">
+                        <div class="recent-post-content">
+                            <h4>The Importance of Seeking Knowledge in Islam</h4>
+                            <span>May 15, 2023</span>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <img src="https://images.unsplash.com/photo-1587132137056-7cbd6c15f0f9?auto=format&fit=crop&w=150&q=80" alt="Recent Post" class="recent-post-img">
+                        <div class="recent-post-content">
+                            <h4>The Spiritual Benefits of Regular Prayer</h4>
+                            <span>May 10, 2023</span>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <img src="https://images.unsplash.com/photo-1516557070061-9aa3d1bf2ce2?auto=format&fit=crop&w=150&q=80" alt="Recent Post" class="recent-post-img">
+                        <div class="recent-post-content">
+                            <h4>The Power of Charity in Building Communities</h4>
+                            <span>May 5, 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quran Section -->
+    <section class="section quran-section" id="quran">
+        <h2 class="section-title">Quran Verses</h2>
+        <div class="quran-container">
+            <div class="quran-verse fade-in">
+                <div class="verse-arabic arabic">
+                    إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ وَأَقَامَ الصَّلَاةَ وَآتَى الزَّكَاةَ وَلَمْ يَخْشَ إِلَّا اللَّهَ ۖ فَعَسَىٰ أُولَٰئِكَ أَنْ يَكُونُوا مِنَ الْمُهْتَدِينَ
+                </div>
+                <div class="verse-translation">
+                    "The mosques of Allah are only to be maintained by those who believe in Allah and the Last Day and establish prayer and give zakah and do not fear except Allah, for it is expected that those will be of the [rightly] guided."
+                </div>
+                <div class="verse-reference">
+                    - Surah At-Tawbah, 9:18
+                </div>
+            </div>
+            <div class="quran-controls">
+                <button class="btn btn-primary" id="prev-verse">Previous Verse</button>
+                <button class="btn btn-secondary" id="next-verse">Next Verse</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hadith Section -->
+    <section class="section hadith-section" id="hadith">
+        <h2 class="section-title">Hadith Collection</h2>
+        <div class="hadith-container">
+            <div class="hadith-card fade-in">
+                <div class="hadith-text">
+                    "The best among you are those who have the best manners and character."
+                </div>
+                <div class="hadith-reference">
+                    - Sahih al-Bukhari
+                </div>
+            </div>
+            <div class="hadith-navigation">
+                <button class="btn btn-primary" id="prev-hadith">Previous Hadith</button>
+                <button class="btn btn-secondary" id="next-hadith">Next Hadith</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Huzur Section -->
+    <section class="section huzur-section" id="huzur">
+        <h2 class="section-title">Respected Huzur</h2>
+        <div class="huzur-container">
+            <div class="huzur-image">
+                <img src="https://images.unsplash.com/photo-1587132137059-4d23d63aca79?auto=format&fit=crop&w=600&q=80" alt="Huzur Image">
+            </div>
+            <div class="huzur-details">
+                <h2 class="huzur-name">Maulana Muhammad Saeed</h2>
+                <p class="huzur-title">Senior Islamic Scholar & Imam</p>
+                <p class="huzur-bio">
+                    Maulana Muhammad Saeed has been serving the Muslim community for over 25 years. He completed his Islamic studies from Darul Uloom Deoband and has been an Imam at Masjid Al-Noor since 1998. He specializes in Tafsir, Fiqh, and Islamic History.
+                </p>
+                <div class="huzur-quote">
+                    "The purpose of knowledge is not just to know, but to act upon it and share it with others for the betterment of society."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Section -->
+    <section class="section shopping-section" id="shopping">
+        <h2 class="section-title">Islamic Products</h2>
+        <div class="products-container">
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?auto=format&fit=crop&w=600&q=80" alt="Islamic Book" class="product-img">
+                <div class="product-content">
+                    <p class="product-category">Books</p>
+                    <h3 class="product-title">The Meaning of the Holy Quran</h3>
+                    <div class="product-price">$24.99</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80" alt="Prayer Rug" class="product-img">
+                <div class="product-content">
+                    <p class="product-category">Prayer Accessories</p>
+                    <h3 class="product-title">Premium Prayer Rug</h3>
+                    <div class="product-price">$39.99</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1584305574647-0cc94971832c?auto=format&fit=crop&w=600&q=80" alt="Tasbih" class="product-img">
+                <div class="product-content">
+                    <p class="product-category">Accessories</p>
+                    <h3 class="product-title">Olive Wood Tasbih</h3>
+                    <div class="product-price">$19.99</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80" alt="Islamic Art" class="product-img">
+                <div class="product-content">
+                    <p class="product-category">Home Decor</p>
+                    <h3 class="product-title">Islamic Calligraphy Art</h3>
+                    <div class="product-price">$49.99</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="contact">
+        <div class="newsletter-content">
+            <h2 class="newsletter-title">Subscribe to Our Newsletter</h2>
+            <p>Stay updated with our latest articles, Quran reflections, and Islamic insights.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Islamic Blog</h3>
+                <p>Sharing authentic Islamic knowledge, Quran reflections, and spiritual guidance for the modern Muslim.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#quran">Quran</a></li>
+                    <li><a href="#hadith">Hadith</a></li>
+                    <li><a href="#huzur">Huzur</a></li>
+                    <li><a href="#shopping">Shop</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Categories</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Spirituality</a></li>
+                    <li><a href="#">Worship</a></li>
+                    <li><a href="#">Quran</a></li>
+                    <li><a href="#">Hadith</a></li>
+                    <li><a href="#">Islamic History</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Islamic Street, Knowledge City</li>
+                    <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                    <li><i class="fas fa-envelope"></i> info@islamicblog.com</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2023 Islamic Blog. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const header = document.getElementById('header');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Quran verses data
+        const quranVerses = [
+            {
+                arabic: 'إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ وَأَقَامَ الصَّلَاةَ وَآتَى الزَّكَاةَ وَلَمْ يَخْشَ إِلَّا اللَّهَ ۖ فَعَسَىٰ أُولَٰئِكَ أَنْ يَكُونُوا مِنَ الْمُهْتَدِينَ',
+                translation: '"The mosques of Allah are only to be maintained by those who believe in Allah and the Last Day and establish prayer and give zakah and do not fear except Allah, for it is expected that those will be of the [rightly] guided."',
+                reference: '- Surah At-Tawbah, 9:18'
+            },
+            {
+                arabic: 'يَا أَيُّهَا الَّذِينَ آمَنُوا ارْكَعُوا وَاسْجُدُوا وَاعْبُدُوا رَبَّكُمْ وَافْعَلُوا الْخَيْرَ لَعَلَّكُمْ تُفْلِحُونَ',
+                translation: '"O you who have believed, bow and prostrate and worship your Lord and do good - that you may succeed."',
+                reference: '- Surah Al-Hajj, 22:77'
+            },
+            {
+                arabic: 'إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا',
+                translation: '"Indeed, prayer has been decreed upon the believers a decree of specified times."',
+                reference: '- Surah An-Nisa, 4:103'
+            }
+        ];
+
+        // Hadith data
+        const hadiths = [
+            {
+                text: '"The best among you are those who have the best manners and character."',
+                reference: '- Sahih al-Bukhari'
+            },
+            {
+                text: '"The strong believer is better and more beloved to Allah than the weak believer, while there is good in both."',
+                reference: '- Sahih Muslim'
+            },
+            {
+                text: '"The most beloved of deeds to Allah are those that are most consistent, even if it is small."',
+                reference: '- Sahih al-Bukhari'
+            }
+        ];
+
+        // Quran verse navigation
+        let currentVerse = 0;
+        const verseArabic = document.querySelector('.verse-arabic');
+        const verseTranslation = document.querySelector('.verse-translation');
+        const verseReference = document.querySelector('.verse-reference');
+        const prevVerseBtn = document.getElementById('prev-verse');
+        const nextVerseBtn = document.getElementById('next-verse');
+
+        function updateVerse() {
+            verseArabic.textContent = quranVerses[currentVerse].arabic;
+            verseTranslation.textContent = quranVerses[currentVerse].translation;
+            verseReference.textContent = quranVerses[currentVerse].reference;
+        }
+
+        prevVerseBtn.addEventListener('click', () => {
+            currentVerse = (currentVerse - 1 + quranVerses.length) % quranVerses.length;
+            updateVerse();
+        });
+
+        nextVerseBtn.addEventListener('click', () => {
+            currentVerse = (currentVerse + 1) % quranVerses.length;
+            updateVerse();
+        });
+
+        // Hadith navigation
+        let currentHadith = 0;
+        const hadithText = document.querySelector('.hadith-text');
+        const hadithReference = document.querySelector('.hadith-reference');
+        const prevHadithBtn = document.getElementById('prev-hadith');
+        const nextHadithBtn = document.getElementById('next-hadith');
+
+        function updateHadith() {
+            hadithText.textContent = hadiths[currentHadith].text;
+            hadithReference.textContent = hadiths[currentHadith].reference;
+        }
+
+        prevHadithBtn.addEventListener('click', () => {
+            currentHadith = (currentHadith - 1 + hadiths.length) % hadiths.length;
+            updateHadith();
+        });
+
+        nextHadithBtn.addEventListener('click', () => {
+            currentHadith = (currentHadith + 1) % hadiths.length;
+            updateHadith();
+        });
+
+        // Shopping cart functionality
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const wishlistButtons = document.querySelectorAll('.wishlist');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.closest('.product-card');
+                const productName = product.querySelector('.product-title').textContent;
+                
+                button.textContent = 'Added to Cart';
+                button.style.background = '#1a472a';
+                
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.style.background = '';
+                }, 2000);
+                
+                // In a real implementation, you would add the product to a cart array
+                console.log(`Added ${productName} to cart`);
+            });
+        });
+
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const icon = button.querySelector('i');
+                const product = button.closest('.product-card');
+                const productName = product.querySelector('.product-title').textContent;
+                
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    button.style.background = '#d4af37';
+                    button.style.color = 'white';
+                    console.log(`Added ${productName} to wishlist`);
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    button.style.background = '';
+                    button.style.color = '';
+                    console.log(`Removed ${productName} from wishlist`);
+                }
+            });
+        });
+
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                
+                if (isVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initial check
+        checkFade();
+
+        // Check on scroll
+        window.addEventListener('scroll', checkFade);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = newsletterForm.querySelector('.newsletter-input');
+            const submitButton = newsletterForm.querySelector('.newsletter-btn');
+            
+            submitButton.textContent = 'Subscribed!';
+            submitButton.style.background = '#0d7e3f';
+            
+            setTimeout(() => {
+                submitButton.textContent = 'Subscribe';
+                submitButton.style.background = '';
+                emailInput.value = '';
+            }, 2000);
+            
+            console.log(`Subscribed with email: ${emailInput.value}`);
+        });
+    </script>
+</body>
+</html>
